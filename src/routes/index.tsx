@@ -1,10 +1,27 @@
-import { component$ } from '@builder.io/qwik';
-
+import { component$, Slot, useSignal } from "@builder.io/qwik";
 
 export default component$(() => {
-  return (
-    <div>
-      Change me please!
-    </div>
-  );
+    const isJoeVisibleSignal = useSignal(false);
+    return (
+        <>
+            <button
+                onClick$={() => {
+                    isJoeVisibleSignal.value = !isJoeVisibleSignal.value;
+                    console.log("Ahoji");
+                }}
+            >
+                Ahoji
+            </button>
+            {isJoeVisibleSignal.value ? <Joe>I love Joe</Joe> : null}
+        </>
+    );
+});
+
+export const Joe = component$(() => {
+    return (
+        <>
+            <div>Hi! I am Joe. Yay!!!</div>
+            <Slot />
+        </>
+    );
 });
